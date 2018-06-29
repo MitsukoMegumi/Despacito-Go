@@ -46,14 +46,14 @@ func SHA256(b interface{}) (string, error) {
 }
 
 // ReadDespacito - attempts to read despacito mp4 file
-func ReadDespacito(dir string) ([]byte, error) {
+func ReadDespacito(dir string) (*[]byte, error) {
 	data, err := ioutil.ReadFile(dir)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return data, nil
+	return &data, nil
 }
 
 // GetCurrentDir - retrieves current directory
