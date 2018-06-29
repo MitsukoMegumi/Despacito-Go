@@ -34,6 +34,12 @@ func (blockchain Blockchain) Mine(minerWallet string) error {
 			}
 
 			mutation.Mutate(*dest.DespacitoSrc, 4)
+
+			mErr := mutation.VerifyMutation(*dest.DespacitoSrc)
+
+			if mErr == nil {
+				transcodeable = true
+			}
 		} else {
 			despacito, err := common.ReadDespacito(common.GetCurrentDir())
 
@@ -48,7 +54,18 @@ func (blockchain Blockchain) Mine(minerWallet string) error {
 			}
 
 			mutation.Mutate(*dest.DespacitoSrc, 4)
+
+			mErr := mutation.VerifyMutation(*dest.DespacitoSrc)
+
+			if mErr == nil {
+				transcodeable = true
+			}
 		}
 	}
 	return nil
+}
+
+// PublishBlock - push specified block to blockchain
+func (blockchain Blockchain) PublishBlock(block block.Block) {
+
 }

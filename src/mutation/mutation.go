@@ -3,6 +3,7 @@ package mutation
 import (
 	"encoding/base64"
 	"io/ioutil"
+	"os"
 	"strings"
 
 	"github.com/mitsukomegumi/DespacitoNet-Go/src/common"
@@ -29,10 +30,29 @@ func VerifyMutation(b []byte) error {
 		return err
 	}
 
+	rErr := ReadMutation(b)
+
+	if rErr != nil {
+		return rErr
+	}
+
 	return nil
 }
 
-func ReadMutation
+// ReadMutation - read mutated despacito from current directory
+func ReadMutation(b []byte) error {
+	file, err := os.Open(common.GetCurrentDir() + "despacito.mp4") // For read access.
+	if err != nil {
+		return err
+	}
+
+	_, err = file.Read(b)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 // SaveMutation - save specified mutation
 func SaveMutation(b []byte) error {
