@@ -5,7 +5,11 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"io/ioutil"
+	"log"
 	"math/rand"
+	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -39,4 +43,25 @@ func SHA256(b interface{}) (string, error) {
 	}
 
 	return hex.EncodeToString(algorithm.Sum(nil)), nil
+}
+
+// ReadDespacito - attempts to read despacito mp4 file
+func ReadDespacito(dir string) ([]byte, error) {
+	data, err := ioutil.ReadFile(dir)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
+// GetCurrentDir - retrieves current directory
+func GetCurrentDir() string {
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return dir
 }
