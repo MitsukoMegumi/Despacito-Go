@@ -2,6 +2,7 @@ package transaction
 
 import (
 	"time"
+
 	"github.com/mitsukomegumi/DespacitoNet-Go/src/common"
 )
 
@@ -19,10 +20,17 @@ type Transaction struct {
 	Hash string `json:"hash"`
 }
 
-func NewTransaction(amount int, sender string, receiver string, reward bool) *Transaction {
+// NewTransaction - creates new instance of transaction struct
+func NewTransaction(amount int, sender string, receiver string, reward bool) (*Transaction, error) {
 	tx := Transaction{Amount: amount, SenderAddr: sender, ReceiverAddr: receiver, Timestamp: time.Now().UTC(), BlockReward: reward, Hash: ""}
 
-	tx.Hash := common.SHA256(tx)
+	hash, err := common.SHA256(tx)
 
-	return &tx
+	if err != nil {
+		return nil, err
+	}
+
+	tx.Hash = hash
+
+	return &tx, nil
 }
