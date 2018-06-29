@@ -5,7 +5,22 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"math/rand"
+	"time"
 )
+
+// RandomBetween - generates random integer between two integers
+func RandomBetween(min, max int) int {
+	rand.Seed(time.Now().Unix())
+	return rand.Intn(max-min) + min
+}
+
+// RandomValue - generates random byte array in size
+func RandomValue(size int) []byte {
+	token := make([]byte, size)
+	rand.Read(token)
+	return token
+}
 
 // SHA256 - generate sha256 string of specified string
 func SHA256(b interface{}) (string, error) {
