@@ -3,6 +3,7 @@ package blockchain
 import (
 	"github.com/mitsukomegumi/DespacitoNet-Go/src/block"
 	"github.com/mitsukomegumi/DespacitoNet-Go/src/common"
+	"github.com/mitsukomegumi/DespacitoNet-Go/src/mutation"
 	"github.com/mitsukomegumi/DespacitoNet-Go/src/transaction"
 )
 
@@ -26,7 +27,13 @@ func (blockchain Blockchain) Mine(minerWallet string) error {
 	for !transcodeable {
 		if len(*blockchain.Blocks) > 0 {
 			blocks := *blockchain.Blocks
-			block.NewBlock(10, minerWallet, blocks[len(blocks)-1].DespacitoSrc, blocks[len(blocks)-1].Version, blockchain.UncomfTxs)
+			dest, err := block.NewBlock(10, minerWallet, blocks[len(blocks)-1].DespacitoSrc, blocks[len(blocks)-1].Version, blockchain.UncomfTxs)
+
+			if err != nil {
+				return err
+			}
+
+			mutation.Mutate(*dest.DespacitoSrc, 4)
 		} else {
 			despacito, err := common.ReadDespacito(common.GetCurrentDir())
 
@@ -34,7 +41,13 @@ func (blockchain Blockchain) Mine(minerWallet string) error {
 				return err
 			}
 
-			block.NewBlock(10, minerWallet, despacito, 0, blockchain.UncomfTxs)
+			dest, err := block.NewBlock(10, minerWallet, despacito, 0, blockchain.UncomfTxs)
+
+			if err != nil {
+				return err
+			}
+
+			mutation.Mutate(*dest.DespacitoSrc, 4)
 		}
 	}
 	return nil
