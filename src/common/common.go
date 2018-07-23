@@ -10,12 +10,13 @@ import (
 	"math/rand"
 	"os"
 	"path/filepath"
-	"time"
 )
+
+// GlobalMutationSize - size of mutations
+const GlobalMutationSize = 6
 
 // RandomBetween - generates random integer between two integers
 func RandomBetween(min, max int) int {
-	rand.Seed(time.Now().Unix())
 	return rand.Intn(max-min) + min
 }
 
@@ -47,7 +48,8 @@ func SHA256(b interface{}) (string, error) {
 
 // ReadDespacito - attempts to read despacito mp4 file
 func ReadDespacito(dir string) (*[]byte, error) {
-	data, err := ioutil.ReadFile(dir)
+	fullPath := dir + "\\Luis Fonsi - Despacito ft. Daddy Yankee.mp4"
+	data, err := ioutil.ReadFile(fullPath)
 
 	if err != nil {
 		return nil, err

@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 
-	"github.com/mitsukomegumi/DespacitoNet-Go/src/block"
+	"github.com/mitsukomegumi/Despacito-Go/src/common"
+	"github.com/mitsukomegumi/Despacito-Go/src/core/types"
 )
 
 func main() {
-	test, err := block.NewBlock(10, "asdfasdf", nil, 10, nil)
+	despacito, err := common.ReadDespacito(common.GetCurrentDir())
+	test, err := types.NewBlock(10, "asdfasdf", despacito, 10, nil)
 
 	if err != nil {
 		panic(err)

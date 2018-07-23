@@ -1,9 +1,9 @@
-package transaction
+package types
 
 import (
 	"time"
 
-	"github.com/mitsukomegumi/DespacitoNet-Go/src/common"
+	"github.com/mitsukomegumi/Despacito-Go/src/common"
 )
 
 // Transaction - defines transactions on blockchain
