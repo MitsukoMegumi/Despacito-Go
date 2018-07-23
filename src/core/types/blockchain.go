@@ -31,7 +31,7 @@ func (blockchain Blockchain) Mine(minerWallet string) error {
 				return err
 			}
 
-			mutation.Mutate(*dest.DespacitoSrccommon.GlobalMutationSize
+			mutation.Mutate(*dest.DespacitoSrc, common.GlobalMutationSize)
 
 			mErr := mutation.VerifyMutation(*dest.DespacitoSrc)
 
@@ -51,7 +51,7 @@ func (blockchain Blockchain) Mine(minerWallet string) error {
 				return err
 			}
 
-			mutation.Mutate(*dest.DespacitoSrccommon.GlobalMutationSize
+			mutation.Mutate(*dest.DespacitoSrc, common.GlobalMutationSize)
 
 			mErr := mutation.VerifyMutation(*dest.DespacitoSrc)
 
