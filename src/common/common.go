@@ -13,6 +13,9 @@ import (
 	"time"
 )
 
+// GlobalMutationSize - predefined mutation size
+const GlobalMutationSize = 6
+
 // RandomBetween - generates random integer between two integers
 func RandomBetween(min, max int) int {
 	rand.Seed(time.Now().Unix())
