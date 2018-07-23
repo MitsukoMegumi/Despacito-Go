@@ -1,20 +1,20 @@
 package main
 
 import (
-	"fmt"
+	"testing"
 
 	"github.com/mitsukomegumi/Despacito-Go/src/common"
 	"github.com/mitsukomegumi/Despacito-Go/src/core/types"
 )
 
-func main() {
+func TestNewBlock(t *testing.T) {
 	despacito, err := common.ReadDespacito(common.GetCurrentDir())
 
 	test, err := types.NewBlock(10, "asdfasdf", despacito, 10, nil)
 
 	if err != nil {
-		panic(err)
+		t.Errorf(err.Error())
 	}
 
-	fmt.Println(test)
+	t.Log(test)
 }

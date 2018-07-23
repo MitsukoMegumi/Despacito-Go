@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/mitsukomegumi/DespacitoNet-Go/src/common"
+	"github.com/mitsukomegumi/Despacito-Go/src/common"
 )
 
 // Mutate - mutate specified byte array
