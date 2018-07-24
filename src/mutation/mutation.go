@@ -71,7 +71,6 @@ func ReadMutation(b []byte) error {
 
 // SaveMutation - save specified mutation
 func SaveMutation(b []byte) error {
-	fmt.Println("test")
 	seeker := new(io.ReadSeeker)
 	(*seeker).Read(b)
 
