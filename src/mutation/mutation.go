@@ -3,11 +3,12 @@ package mutation
 import (
 	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"strings"
 
-	"github.com/nareix/joy4/av/avutil"
+	"github.com/nareix/joy4/format/mp4"
 
 	"github.com/mitsukomegumi/Despacito-Go/src/common"
 )
@@ -70,12 +71,14 @@ func ReadMutation(b []byte) error {
 
 // SaveMutation - save specified mutation
 func SaveMutation(b []byte) error {
-	ioutil.WriteFile(common.GetCurrentDir()+"/iterDespacito.mp4", b, 0644)
+	fmt.Println("test")
+	seeker := new(io.ReadSeeker)
+	(*seeker).Read(b)
 
-	_, err := avutil.Open(common.GetCurrentDir() + "/iterDespacito.mp4")
+	muxer := mp4.NewDemuxer(*seeker)
+	_, err := muxer.ReadPacket()
 
 	if err != nil {
-
 		fmt.Println(err)
 
 		return err

@@ -43,7 +43,7 @@ func (blockchain Blockchain) Mine(minerWallet string) error {
 				return err
 			}
 
-			fmt.Println("found mutation: " + mutatedResult)
+			fmt.Println("\nfound mutation: " + mutatedResult)
 
 			mErr := mutation.VerifyMutation(*dest.DespacitoSrc)
 

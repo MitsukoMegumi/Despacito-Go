@@ -64,12 +64,23 @@ func ReadDespacito(dir string) (*[]byte, error) {
 
 // GetCurrentDir - retrieves current directory
 func GetCurrentDir() string {
+
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	return dir
+}
+
+func testDir(dir string) bool {
+	_, err := ioutil.ReadDir(dir + "\\despacito.mp4")
+
+	if err != nil {
+		return false
+	}
+
+	return true
 }
 
 // WriteGob - create gob from specified object, at filePath
