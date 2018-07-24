@@ -11,15 +11,16 @@ import (
 	"math/rand"
 	"os"
 	"path/filepath"
-	"time"
 )
 
 // GlobalMutationSize - predefined mutation size
 const GlobalMutationSize = 6
 
+// NilValue - global zero value
+const NilValue = 0
+
 // RandomBetween - generates random integer between two integers
 func RandomBetween(min, max int) int {
-	rand.Seed(time.Now().Unix())
 	return rand.Intn(max-min) + min
 }
 
@@ -27,6 +28,7 @@ func RandomBetween(min, max int) int {
 func RandomValue(size int) []byte {
 	token := make([]byte, size)
 	rand.Read(token)
+
 	return token
 }
 

@@ -1,25 +1,39 @@
 package mutation
 
 import (
-	"encoding/base64"
+	"errors"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
+
+	"github.com/nareix/joy4/av/avutil"
 
 	"github.com/mitsukomegumi/Despacito-Go/src/common"
 )
 
 // Mutate - mutate specified byte array
-func Mutate(b []byte, size int) {
+func Mutate(b []byte, size int) (string, error) {
+
+	if size == 0 || len(b) < size {
+		return "", errors.New("invalid size or input")
+	}
+
 	mutatedSize := 0
+
+	var mutated []string
 
 	for mutatedSize != size {
 		randSelector := common.RandomBetween(0, len(b)-size)
 		randVal := common.RandomValue(size)
 
+		mutated = append(mutated, string(randVal[0]))
+
 		b[randSelector+mutatedSize] = randVal[0]
 		mutatedSize++
 	}
+
+	return strings.Join(mutated, " "), nil
 }
 
 // VerifyMutation - verify byte array for encoding
@@ -56,16 +70,18 @@ func ReadMutation(b []byte) error {
 
 // SaveMutation - save specified mutation
 func SaveMutation(b []byte) error {
-	b64data := string(b)
-	reader := strings.NewReader(b64data)
-	decoder := base64.NewDecoder(base64.StdEncoding, reader)
-	decodedData, err := ioutil.ReadAll(decoder)
+	ioutil.WriteFile(common.GetCurrentDir()+"/iterDespacito.mp4", b, 0644)
+
+	_, err := avutil.Open(common.GetCurrentDir() + "/iterDespacito.mp4")
 
 	if err != nil {
+
+		fmt.Println(err)
+
 		return err
 	}
 
-	ioutil.WriteFile(common.GetCurrentDir()+"/despacito.mp4", decodedData, 0644)
+	ioutil.WriteFile(common.GetCurrentDir()+"/despacito.mp4", b, 0644)
 
 	return nil
 }
