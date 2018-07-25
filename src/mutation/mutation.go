@@ -3,14 +3,15 @@ package mutation
 import (
 	"errors"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"os"
 	"strings"
 
-	"github.com/nareix/joy4/format/mp4"
+	"github.com/nareix/joy4/av"
 
 	"github.com/mitsukomegumi/Despacito-Go/src/common"
+	"github.com/nareix/joy4/av/avutil"
+	"github.com/nareix/joy4/format"
 )
 
 // Mutate - mutate specified byte array
@@ -71,19 +72,30 @@ func ReadMutation(b []byte) error {
 
 // SaveMutation - save specified mutation
 func SaveMutation(b []byte) error {
-	seeker := new(io.ReadSeeker)
-	(*seeker).Read(b)
-
-	muxer := mp4.NewDemuxer(*seeker)
-	_, err := muxer.ReadPacket()
+	format.RegisterAll()
+	file, err := avutil.Open("despacito.mp4")
 
 	if err != nil {
-		fmt.Println(err)
-
 		return err
 	}
 
-	ioutil.WriteFile(common.GetCurrentDir()+"/despacito.mp4", b, 0644)
+	streams, err := file.Streams()
+
+	if err != nil {
+		return err
+	}
+
+	stream := streams[0]
+
+	vstream := stream.(av.CodecData)
+
+	fmt.Println(vstream.Type())
+
+	if vstream.Type() != av.H264 {
+		return errors.New("invalid")
+	}
+
+	ioutil.WriteFile(common.GetCurrentDir()+"\\despacito.mp4", b, 0644)
 
 	return nil
 }
