@@ -2,7 +2,6 @@ package mutation
 
 import (
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -46,12 +45,6 @@ func VerifyMutation(b []byte) error {
 		return err
 	}
 
-	rErr := ReadMutation(b)
-
-	if rErr != nil {
-		return rErr
-	}
-
 	return nil
 }
 
@@ -72,8 +65,10 @@ func ReadMutation(b []byte) error {
 
 // SaveMutation - save specified mutation
 func SaveMutation(b []byte) error {
+	ioutil.WriteFile(common.GetCurrentDir()+"\\iterDespacito.mp4", b, 0644)
+
 	format.RegisterAll()
-	file, err := avutil.Open("despacito.mp4")
+	file, err := avutil.Open("iterDespacito.mp4")
 
 	if err != nil {
 		return err
@@ -88,8 +83,6 @@ func SaveMutation(b []byte) error {
 	stream := streams[0]
 
 	vstream := stream.(av.CodecData)
-
-	fmt.Println(vstream.Type())
 
 	if vstream.Type() != av.H264 {
 		return errors.New("invalid")
