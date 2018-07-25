@@ -31,7 +31,8 @@ func (blockchain Blockchain) Mine(minerWallet string) error {
 
 	for !transcodeable {
 		if reflect.ValueOf(blockchain.Blocks).IsNil() {
-			blocks := *blockchain.Blocks
+			blocksPointer := blockchain.Blocks
+			blocks := *blocksPointer
 			dest, err := NewBlock(10, minerWallet, blocks[len(blocks)-1].DespacitoSrc, blocks[len(blocks)-1].Version, blockchain.UncomfTxs)
 
 			if err != nil {
@@ -44,14 +45,22 @@ func (blockchain Blockchain) Mine(minerWallet string) error {
 				return err
 			}
 
-			fmt.Println("\nfound mutation: " + mutatedResult)
+			mutationHashValue, err := common.SHA256(mutatedResult)
 
-			mErr := mutation.VerifyMutation(*dest.DespacitoSrc)
-
-			if mErr == nil {
-				transcodeable = true
+			if err != nil {
+				fmt.Println("solution " + mutationHashValue + " invalid")
 			} else {
-				fmt.Println("solution invalid")
+				fmt.Println("\nfound mutation: " + mutationHashValue + " with value: " + mutatedResult)
+
+				fmt.Println("attempting to verify mutation " + mutationHashValue)
+
+				mErr := mutation.VerifyMutation(*dest.DespacitoSrc)
+
+				if mErr == nil {
+					transcodeable = true
+				} else {
+					fmt.Println("solution invalid")
+				}
 			}
 		} else {
 			despacito, err := common.ReadDespacito(common.GetCurrentDir())
@@ -96,7 +105,8 @@ func (blockchain Blockchain) PublishBlock(block Block) {
 
 // WriteChainToMemory - create serialized instance of specified chain in specified path (string)
 func (blockchain Blockchain) WriteChainToMemory(path string) error {
-	err := common.WriteGob(path+filepath.FromSlash("/Chain.gob"), blockchain)
+	path = path + filepath.FromSlash("/Chain.gob")
+	err := common.WriteGob(path, blockchain)
 
 	if err != nil {
 		return err
@@ -107,9 +117,10 @@ func (blockchain Blockchain) WriteChainToMemory(path string) error {
 
 // ReadChainFromMemory - read serialized object of specified chain from specified path
 func ReadChainFromMemory(path string) (*Blockchain, error) {
+	path = path + filepath.FromSlash("/Chain.gob")
 	tempChain := new(Blockchain)
 
-	err := common.ReadGob(path+filepath.FromSlash("/Chain.gob"), tempChain)
+	err := common.ReadGob(path, tempChain)
 	if err != nil {
 		return nil, err
 	}

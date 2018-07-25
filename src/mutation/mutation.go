@@ -89,7 +89,7 @@ func SaveMutation(b []byte) error {
 		return errors.New("invalid")
 	}
 
-	ioutil.WriteFile(common.GetCurrentDir()+"\\despacito.mp4", b, 0644)
+	ioutil.WriteFile(common.GetCurrentDir()+filepath.FromSlash("/despacito.mp4"), b, 0644)
 
 	return nil
 }

@@ -74,7 +74,7 @@ func GetCurrentDir() string {
 }
 
 func testDir(dir string) bool {
-	_, err := ioutil.ReadDir(dir + "\\despacito.mp4")
+	_, err := ioutil.ReadDir(dir + filepath.FromSlash("/despacito.mp4"))
 
 	if err != nil {
 		return false
