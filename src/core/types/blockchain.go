@@ -2,6 +2,7 @@ package types
 
 import (
 	"fmt"
+	"path/filepath"
 	"reflect"
 
 	"github.com/mitsukomegumi/Despacito-Go/src/common"
@@ -95,7 +96,7 @@ func (blockchain Blockchain) PublishBlock(block Block) {
 
 // WriteChainToMemory - create serialized instance of specified chain in specified path (string)
 func (blockchain Blockchain) WriteChainToMemory(path string) error {
-	err := common.WriteGob(path+"Chain.gob", blockchain)
+	err := common.WriteGob(path+filepath.FromSlash("/Chain.gob"), blockchain)
 
 	if err != nil {
 		return err
@@ -108,7 +109,7 @@ func (blockchain Blockchain) WriteChainToMemory(path string) error {
 func ReadChainFromMemory(path string) (*Blockchain, error) {
 	tempChain := new(Blockchain)
 
-	err := common.ReadGob(path+"Chain.gob", tempChain)
+	err := common.ReadGob(path+filepath.FromSlash("/Chain.gob"), tempChain)
 	if err != nil {
 		return nil, err
 	}

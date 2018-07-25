@@ -53,7 +53,7 @@ func SHA256(b interface{}) (string, error) {
 
 // ReadDespacito - attempts to read despacito mp4 file
 func ReadDespacito(dir string) (*[]byte, error) {
-	data, err := ioutil.ReadFile(dir + "\\despacito.mp4")
+	data, err := ioutil.ReadFile(dir + filepath.FromSlash("/despacito.mp4"))
 
 	if err != nil {
 		return nil, err

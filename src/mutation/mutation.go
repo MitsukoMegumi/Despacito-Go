@@ -4,6 +4,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/nareix/joy4/av"
@@ -65,7 +66,7 @@ func ReadMutation(b []byte) error {
 
 // SaveMutation - save specified mutation
 func SaveMutation(b []byte) error {
-	ioutil.WriteFile(common.GetCurrentDir()+"\\iterDespacito.mp4", b, 0644)
+	ioutil.WriteFile(common.GetCurrentDir()+filepath.FromSlash("/iterDespacito.mp4"), b, 0644)
 
 	format.RegisterAll()
 	file, err := avutil.Open("iterDespacito.mp4")
