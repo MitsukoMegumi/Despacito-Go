@@ -9,11 +9,11 @@ import (
 
 func main() {
 	despacito, err := common.ReadDespacito(common.GetCurrentDir()) // Read local despacito copy
-	
+
 	if err != nil { // Check for errors
 		panic(err) // Panic
 	}
-	
+
 	test, err := types.NewBlock(10, "asdfasdf", despacito, 10, nil) // Generate test block
 
 	if err != nil { // Check for errors
