@@ -3,7 +3,7 @@ package mutation
 import (
 	"fmt"
 
-	"github.com/mitsukomegumi/Despacito-Go/src/common"
+	"github.com/dowlandaiello/Despacito-Go/src/common"
 )
 
 // Mutate - mutate specified byte array

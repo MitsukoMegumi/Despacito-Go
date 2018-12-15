@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/mitsukomegumi/Despacito-Go/src/common"
-	"github.com/mitsukomegumi/Despacito-Go/src/core/types"
+	"github.com/dowlandaiello/Despacito-Go/src/common"
+	"github.com/dowlandaiello/Despacito-Go/src/core/types"
 )
 
 func main() {

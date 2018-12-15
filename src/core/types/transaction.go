@@ -3,7 +3,7 @@ package types
 import (
 	"time"
 
-	"github.com/mitsukomegumi/Despacito-Go/src/common"
+	"github.com/dowlandaiello/Despacito-Go/src/common"
 )
 
 // Transaction - defines transactions on blockchain

@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/mitsukomegumi/Despacito-Go/src/common"
+	"github.com/dowlandaiello/Despacito-Go/src/common"
 )
 
 // Blockchain - chain representation of blocks, mutations, txs
